@@ -4,7 +4,7 @@ Desktop block-cipher tool for encrypting/decrypting files and plain texts using 
 
 # Features
 
-The following are some characteristics that should be high-lighted about this particular implementation of the Rijndael encryption:
+The following are some characteristics that should be highlighted about this particular implementation of the Rijndael encryption:
 
 - Cipher Block Chaining (CBC) mode of operation: *A chain of consecutive XORs on every block of raw data is applied before the encryption. This mode of operation ensures the diffusion of the generated ciphertext, drastically reducing the appearance of data patterns.*
 - Public-Key Cryptography Standards #5 (PKCS5) Padding: *A standard padding algorithm to ensure the size of AES blocks. Extra bytes are added to the unencrypted data so that the overall size of the information corresponds with a exact multiple of 16 bytes. The specifications of PKCS5 scheme can be found here: https://cryptosys.net/pki/manpki/pki_paddingschemes.html*
