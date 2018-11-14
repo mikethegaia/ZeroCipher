@@ -91,9 +91,9 @@ public class Main
                 } 
             }
         } 
-        catch (FileNotFoundException e)
+        catch (FileNotFoundException | ArrayIndexOutOfBoundsException e)
         {
-            System.out.println("The file " + args[2] + " was not found");
+            System.out.println("The file \"" + args[2] + "\" was not found");
         }
         catch (BadPaddingException | IllegalArgumentException | IllegalBlockSizeException e)
         {
