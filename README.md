@@ -19,8 +19,8 @@ The following are some characteristics that should be highlighted about this par
 
 ````
 Usage: 
-java -jar "Encryption.jar" {-f | -t} {-e | -d} <fileOrPath> <password>
-java -jar "Encryption.jar" -h
+java -jar "ZeroCipher.jar" {-f | -t} {-e | -d} <fileOrPath> <password>
+java -jar "ZeroCipher.jar" -h
    -f: file manipulation
    -t: plain text manipulation
    -e: encryption mode
