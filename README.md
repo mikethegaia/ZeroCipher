@@ -15,7 +15,7 @@ The following are some characteristics that should be highlighted about this par
 
 1. Download the current release from the "Releases" section.
 2. Open the installation directory using the command line interface.
-3. The execution commands are stated as follows:
+3. Apply one of the following commands:
 
 ````
 Usage: 
