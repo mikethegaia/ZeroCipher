@@ -15,7 +15,7 @@ import javax.crypto.IllegalBlockSizeException;
 public class Main 
 {
     
-    public static final String USAGE = "Usage: \njava -jar \"ZeroCipher.jar\" {-f | -t} {-e | -d} <fileOrPath> <password>"
+    public static final String USAGE = "Usage: \njava -jar \"ZeroCipher.jar\" {-f | -t} {-e | -d} <textOrPath> <password>"
             + "\njava -jar \"ZeroCipher.jar\" -h"
             + "\n   -f: file manipulation"
             + "\n   -t: plain text manipulation"
