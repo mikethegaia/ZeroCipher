@@ -19,7 +19,7 @@ The following are some characteristics that should be highlighted about this par
 
 ````
 Usage: 
-java -jar "ZeroCipher.jar" {-f | -t} {-e | -d} <fileOrPath> <password>
+java -jar "ZeroCipher.jar" {-f | -t} {-e | -d} <textOrPath> <password>
 java -jar "ZeroCipher.jar" -h
    -f: file manipulation
    -t: plain text manipulation
