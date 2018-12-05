@@ -24,15 +24,11 @@ public class AESFile extends AESObject
     
     public String encrypt() throws Exception
     {
-        if (mode == Cipher.ENCRYPT_MODE) {
-            //Obtain the byte representation of the init vector and salt
-            byte[] initVectorBytes = initVector.getBytes(ENCODING);
-            byte[] saltBytes = salt.getBytes(ENCODING);
-            
+        if (mode == Cipher.ENCRYPT_MODE) {            
             //Generate a new encryption cipher
             Cipher cipher = Cipher.getInstance(TRANSFORMATION);
-            SecretKeySpec key = genSecret(saltBytes);
-            cipher.init(mode, key, new IvParameterSpec(initVectorBytes));
+            SecretKeySpec key = genSecret();
+            cipher.init(mode, key, new IvParameterSpec(initVector));
 
             //Initialize the original file and create a new one
             File original = new File(file);
@@ -47,7 +43,7 @@ public class AESFile extends AESObject
 
              //Encrypt the text and concat the cryptogram with the init vector and the salt
             byte[] cryptedBytes = cipher.doFinal(inBytes);
-            byte[] outBytes = genCryptogram(initVectorBytes, saltBytes, cryptedBytes);
+            byte[] outBytes = genCryptogram(cryptedBytes);
             
             //Write the cryptogram into the new file
             FileOutputStream out = new FileOutputStream(crypted);
@@ -75,13 +71,11 @@ public class AESFile extends AESObject
             in.read(inBytes);
             
             //Retrieve the init vector and the salt and decrypt
-            byte[][] elements = getIVSaltCrypto(inBytes);
-
-            //Retrieve the init vector from the cryptogram and decrypt 
+            byte[] elements = getIVSaltCrypto(inBytes);
             Cipher cipher = Cipher.getInstance(TRANSFORMATION);
-            SecretKeySpec key = genSecret(elements[1]);
-            cipher.init(mode, key, new IvParameterSpec(elements[0]));
-            byte[] outBytes = cipher.doFinal(elements[2]);
+            SecretKeySpec key = genSecret();
+            cipher.init(mode, key, new IvParameterSpec(initVector));
+            byte[] outBytes = cipher.doFinal(elements);
 
             //Write the decrypted data into the new file
             FileOutputStream out = new FileOutputStream(decrypted);

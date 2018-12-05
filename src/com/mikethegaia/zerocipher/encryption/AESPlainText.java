@@ -33,17 +33,15 @@ public class AESPlainText extends AESObject
     public String encrypt() throws Exception
     {
         if (mode == Cipher.ENCRYPT_MODE) {
-            //Obtain the byte representation of the init vector, salt and plain text
-            byte[] initVectorBytes = initVector.getBytes(ENCODING);
-            byte[] saltBytes = salt.getBytes(ENCODING);
+            //Obtain the byte representation of plain text
             byte[] textBytes = plainText.getBytes(ENCODING);
             
             //Encrypt the text and concat the cryptogram with the init vector and the salt
             Cipher cipher = Cipher.getInstance(TRANSFORMATION);
-            SecretKeySpec key = genSecret(saltBytes);
-            cipher.init(mode, key, new IvParameterSpec(initVectorBytes));
+            SecretKeySpec key = genSecret();
+            cipher.init(mode, key, new IvParameterSpec(initVector));
             byte[] cryptedBytes = cipher.doFinal(textBytes);
-            byte[] outBytes = genCryptogram(initVectorBytes, saltBytes, cryptedBytes);
+            byte[] outBytes = genCryptogram(cryptedBytes);
             
             //Encode the result in Base64 and return the string 
             byte[] crypto = Base64.getEncoder().encode(outBytes);
@@ -56,13 +54,13 @@ public class AESPlainText extends AESObject
         if (mode == Cipher.DECRYPT_MODE) {
             //Decode the cryptogram from Base64 and retrieve the init vector and the salt
             byte[] crypto = Base64.getDecoder().decode(cipherText.getBytes());
-            byte[][] elements = getIVSaltCrypto(crypto);
+            byte[] elements = getIVSaltCrypto(crypto);
             
             //Decrypt the text using the retrieved init vector and salt
             Cipher cipher = Cipher.getInstance(TRANSFORMATION);
-            SecretKeySpec key = genSecret(elements[1]);
-            cipher.init(mode, key, new IvParameterSpec(elements[0]));
-            return new String(cipher.doFinal(elements[2]), ENCODING);
+            SecretKeySpec key = genSecret();
+            cipher.init(mode, key, new IvParameterSpec(initVector));
+            return new String(cipher.doFinal(elements), ENCODING);
         } else return "Object in DECRYPT_MODE";
     }
     
