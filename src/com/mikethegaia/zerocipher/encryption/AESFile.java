@@ -3,6 +3,7 @@ package com.mikethegaia.zerocipher.encryption;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.util.regex.Pattern;
 import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
@@ -61,8 +62,8 @@ public class AESFile extends AESObject
             //Initialize the crypted file and create a new one
             File crypted = new File(file);
             String[] fileArray = file.split("\\.");
-            String[] fileArray2 = fileArray[0].split("\\\\");
-            String newFileName = newPath + "\\" + fileArray2[fileArray2.length-1] + "." + fileArray[1];
+            String[] fileArray2 = fileArray[0].split(Pattern.quote(File.separator));
+            String newFileName = newPath + File.separator + fileArray2[fileArray2.length-1] + "." + fileArray[1];
             File decrypted = new File(newFileName);
 
             //Read bytes from the crypted file
